@@ -355,28 +355,76 @@ body {
   border-top: 1px solid var(--border);
 }
 
-.map-btn {
+.card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+/* Wolt primary button */
+.wolt-btn {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: 100%;
-  padding: 11px 20px;
+  gap: 7px;
+  padding: 11px 14px;
   background: var(--primary);
   color: white;
   border: none;
   border-radius: var(--radius-sm);
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.18s ease, transform 0.1s ease;
-  letter-spacing: 0.1px;
+  white-space: nowrap;
 }
 
-.map-btn:hover { background: var(--primary-hover); }
+.wolt-btn:hover { background: var(--primary-hover); }
+.wolt-btn:active { transform: scale(0.98); }
+
+/* Map button — secondary (icon-only width when Wolt btn exists) */
+.map-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 14px;
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.map-btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
 .map-btn:active { transform: scale(0.98); }
+
+/* Full-width map button (no Wolt btn alongside) */
+.map-btn--full {
+  flex: 1;
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.map-btn--full:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
 
 /* ===== Sightseeing card variant ===== */
 .sight-card .card-emoji-header {
@@ -398,10 +446,16 @@ body {
   color: #007A52;
 }
 
-.sight-card .map-btn {
+.sight-card .map-btn--full {
   background: #00875A;
+  border-color: #00875A;
+  color: white;
 }
-.sight-card .map-btn:hover { background: #006644; }
+.sight-card .map-btn--full:hover {
+  background: #006644;
+  border-color: #006644;
+  color: white;
+}
 
 /* ===== Tips ===== */
 .tips-grid {
