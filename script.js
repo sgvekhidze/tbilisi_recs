@@ -4,22 +4,34 @@
 
 const foodData = [
   {
+    name: "Brunch Gastronome",
+    description: "Tbilisi's favourite brunch destination — a cozy neighbourhood spot in Dighomi serving creative weekend brunch plates, excellent coffee, and a relaxed, homey atmosphere.",
+    meals: ["breakfast", "lunch"],
+    cuisine: "Brunch & Café",
+    mapLink: "https://www.google.com/maps/search/?api=1&query=Gastronom+Dighomi+Tbilisi",
+    woltLink: "https://wolt.com/en/geo/tbilisi/venue/gastronome-dighomi",
+    tags: ["brunch", "coffee", "cozy"],
+    emoji: "🍳"
+  },
+  {
     name: "Honoré",
     description: "A charming French-inspired café with exceptional pastries, croissants, and specialty coffee. The perfect spot to start your morning in Tbilisi — elegant, relaxed, and delicious.",
-    meals: ["breakfast", "brunch"],
+    meals: ["breakfast"],
     cuisine: "French Café",
     mapLink: "https://share.google/PyWOHu70oPqzEYgZb",
-    tags: ["coffee", "pastries", "brunch"],
+    woltLink: "https://wolt.com/en/geo/tbilisi/restaurant/honor",
+    tags: ["coffee", "pastries", "french"],
     emoji: "☕"
   },
   {
     name: "Food Good",
-    description: "A cozy and welcoming café popular with locals for its wholesome breakfast plates and brunch spreads. Great coffee, fresh ingredients, and a relaxed atmosphere.",
-    meals: ["breakfast", "brunch"],
-    cuisine: "Café & Brunch",
+    description: "A cozy and welcoming café popular with locals for its wholesome breakfast plates. Great coffee, fresh ingredients, and a relaxed atmosphere to ease into your day.",
+    meals: ["breakfast"],
+    cuisine: "Café & Breakfast",
     mapLink: "https://www.google.com/maps/search/?api=1&query=Food+Good+Tbilisi",
-    tags: ["coffee", "brunch", "cozy"],
-    emoji: "🍳"
+    woltLink: "https://wolt.com/en/geo/tbilisi/brand/food-good",
+    tags: ["coffee", "fresh", "local favourite"],
+    emoji: "🥗"
   },
   {
     name: "Ska",
@@ -27,6 +39,7 @@ const foodData = [
     meals: ["lunch"],
     cuisine: "Modern Café",
     mapLink: "https://www.google.com/maps/search/?api=1&query=Ska+restaurant+Tbilisi",
+    woltLink: "https://wolt.com/en/geo/tbilisi/brand/ska",
     tags: ["casual", "fresh", "popular"],
     emoji: "🌮"
   },
@@ -36,6 +49,7 @@ const foodData = [
     meals: ["lunch", "dinner"],
     cuisine: "Modern European",
     mapLink: "https://maps.app.goo.gl/EaB3Tb5qQQ1YQX2w9",
+    woltLink: "https://wolt.com/en/geo/tbilisi/restaurant/rigi-gastrodouqan",
     tags: ["modern", "elegant", "european"],
     emoji: "🍽️"
   },
@@ -45,6 +59,7 @@ const foodData = [
     meals: ["lunch", "dinner"],
     cuisine: "Georgian Traditional",
     mapLink: "https://share.google/aHqPZ2sXfqqDmouFx",
+    woltLink: "https://wolt.com/en/geo/tbilisi/restaurant/palmebi-by-honor",
     tags: ["georgian", "traditional", "khinkali"],
     emoji: "🥟"
   },
@@ -54,6 +69,7 @@ const foodData = [
     meals: ["lunch", "dinner"],
     cuisine: "Georgian",
     mapLink: "https://maps.app.goo.gl/5SKqPEusJ5dsTpSD7",
+    woltLink: null, // Not available on Wolt
     tags: ["garden", "terrace", "romantic"],
     emoji: "🌿"
   },
@@ -63,6 +79,7 @@ const foodData = [
     meals: ["dinner"],
     cuisine: "Wine Bar & Georgian",
     mapLink: "https://www.google.com/maps/place/8000+Vintages/@41.7082206,44.7587072,17z",
+    woltLink: "https://wolt.com/en/geo/tbilisi/brand/8000-vintages",
     tags: ["wine", "natural wine", "upscale"],
     emoji: "🍷"
   },
@@ -72,6 +89,7 @@ const foodData = [
     meals: ["lunch", "dinner"],
     cuisine: "Modern Georgian",
     mapLink: "https://maps.app.goo.gl/JEoFywUEVVnbzFAb6",
+    woltLink: null, // Not available on Wolt
     tags: ["modern", "creative", "seasonal"],
     emoji: "✨"
   }
@@ -89,7 +107,7 @@ const sightseeingData = [
   },
   {
     name: "Abanotubani (Sulfur Baths)",
-    description: "Tbilisi's iconic sulfur bath district — the city was actually founded around these natural hot springs. Book a private domed bathhouse for a uniquely relaxing experience.",
+    description: "Tbilisi's iconic sulfur bath district — the city was founded around these natural hot springs. Book a private domed bathhouse for a uniquely relaxing experience.",
     category: "Experience",
     mapLink: "https://www.google.com/maps/search/?api=1&query=Abanotubani+Tbilisi",
     tags: ["spa", "cultural", "unique"],
@@ -107,7 +125,7 @@ const sightseeingData = [
   },
   {
     name: "Tbilisi Synagogue",
-    description: "One of the most beautiful synagogues in the Caucasus, located in the heart of Old Town. A testament to Tbilisi's centuries-long Jewish community and the city's multicultural heritage.",
+    description: "One of the most beautiful synagogues in the Caucasus, in the heart of Old Town. A testament to Tbilisi's centuries-long Jewish community and the city's multicultural heritage.",
     category: "Religious",
     mapLink: "https://www.google.com/maps/search/?api=1&query=Great+Synagogue+Tbilisi",
     tags: ["historic", "culture", "architecture"],
@@ -219,7 +237,6 @@ const tipsData = [
 
 const mealLabels = {
   breakfast: "🌅 Breakfast",
-  brunch: "🥂 Brunch",
   lunch: "☀️ Lunch",
   dinner: "🌙 Dinner"
 };
@@ -240,6 +257,16 @@ function renderFoodCards(filter = "all") {
       .map(t => `<span class="tag">${t}</span>`)
       .join("");
 
+    const woltBtnHTML = place.woltLink
+      ? `<a href="${place.woltLink}" target="_blank" rel="noopener noreferrer" class="wolt-btn">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <circle cx="12" cy="12" r="12" fill="white" fill-opacity="0.25"/>
+             <text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="800" fill="white" font-family="Inter,sans-serif">W</text>
+           </svg>
+           Order on Wolt
+         </a>`
+      : "";
+
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
@@ -256,9 +283,12 @@ function renderFoodCards(filter = "all") {
         <div class="card-tags">${tagsHTML}</div>
       </div>
       <div class="card-footer">
-        <a href="${place.mapLink}" target="_blank" rel="noopener noreferrer" class="map-btn">
-          📍 View on Map
-        </a>
+        <div class="card-actions">
+          ${woltBtnHTML}
+          <a href="${place.mapLink}" target="_blank" rel="noopener noreferrer" class="map-btn ${place.woltLink ? 'map-btn--secondary' : ''}">
+            📍 Map
+          </a>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -292,9 +322,11 @@ function renderSightseeingCards() {
         <div class="card-tags">${tagsHTML}</div>
       </div>
       <div class="card-footer">
-        <a href="${place.mapLink}" target="_blank" rel="noopener noreferrer" class="map-btn">
-          📍 View on Map
-        </a>
+        <div class="card-actions">
+          <a href="${place.mapLink}" target="_blank" rel="noopener noreferrer" class="map-btn map-btn--full">
+            📍 View on Map
+          </a>
+        </div>
       </div>
     `;
     container.appendChild(card);
